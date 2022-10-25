@@ -2,10 +2,17 @@ package edu.kh.project.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.kh.project.member.model.service.MemberService;
+import edu.kh.project.member.model.service.MemberServiceImpl;
+import edu.kh.project.member.model.vo.Member;
 
 // 회원 관련 요청을 받는 컨트롤러(로그인/아웃, 회원가입, 아이디 중복검사 등)
 // Controller : 프레젠테이션 레이어 
@@ -17,6 +24,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 //						+ bean 등록 (Spring이 객체로 만들어서 관리)
 @Controller
 public class MemberController {
+	
+	// * 공용으로 사용할 Service 객체 생성 *
+	
+//	private MemberService service = new MemberServiceImpl();  // 결합도 낮추기 위해 왼쪽 부모 오른쪽 상속받은 자식
+	// spring에서는 알맞지 않은 코드, IOC에 의해 new로 객체생성 x, 알아서 생성해주기 때문
+	// spring이 만든 객체 == bean
+	
+//	@Autowired
+	// bean scanning을 통해 bean으로 등록된 객체 중
+	// 알맞은 객체를 DI(의존성 주입) 해주는 어노테이션
+
+	// 자동 연결 규칙 : 타입이 같거나 상속 관계인 bean을 자동으로 DI
+	// 상속 받은 자식이 많은 경우 -> qualifier로 이름 지정
+	
+	@Autowired
+	private MemberService service;
 	
 	// @RequestMapping : 클라이언트의 요청을 처리할 클래스/메서드를 지정하는 어노테이션
 	// == Handler Mapping
@@ -49,7 +72,7 @@ public class MemberController {
 	// -> required = true인 파라미터가 존재하지 않는다면 400 Bad Request 에러 발생
 	// -> required = true인 파라미터가 null인 경우에도 400 Bad Request
 	
-	// -> required = false인 경우 전달된 파라미터가 없으면 null	
+	// -> required = false인 경우 전달된 파라미터가 없으면 null	(false : 필수 아님)
 
 	// defaultValue : 파라미터 중 일치하는 name 속성 값이 없을 경우에 대입할 값 지정.
 	// -> required = false인 경우 사용
@@ -58,7 +81,6 @@ public class MemberController {
 	// 조건 : 매개변수 이름 == input name 속성 값
 	
 //	@RequestMapping(value="/member/login", method = RequestMethod.POST)
-	
 	public String login(@RequestParam("inputEmail") String email,
 						@RequestParam(value="inputPw2", required=false, defaultValue="1234") String pw,
 						String inputPw) {
@@ -71,7 +93,7 @@ public class MemberController {
 	}
 	
 	// @RequestParam 생략을 이용해서 짧게 코드 작성 가능
-	@RequestMapping(value="/member/login", method = RequestMethod.POST)
+//	@RequestMapping(value="/member/login", method = RequestMethod.POST)
 	public String login(String inputEmail, String inputPw) {
 		
 		System.out.println(inputEmail);
@@ -79,4 +101,58 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	// == @RequestMapping(value="/member/login", method = RequestMethod.POST)
+	//@PostMapping("/member/login") == POST 방식의 /member/login 요청을 연결
+	//@GetMappin("/member/login") == GET 방식의 /member/login 요청을 연결
+	
+	
+	// 3. @ModelAttribute 어노테이션 이용
+	
+	// [작성법]
+	// @ModelAttribute VO타입 매개변수명
+	// -> 파라미터의 name 속성 값이 지정된 VO의 필드명과 같다면
+	//   해당 VO 객체의 필드에 파라미터를 세팅
+
+	// [조건]
+	// 1. name 속성 값과 필드 명이 같아야함
+	// 2. VO에 반드시 기본 생성자가 존재해야 함
+	// 3. VO에 반드시 setter가 존재해야 함
+	
+	// * @ModelAttribute 어노테이션 생략도 가능
+	// (자동으로 기본생성자로 new 객체 만듬)
+	// == 커맨드 객체
+	
+	@PostMapping("/member/login")
+	public String login(/* @ModelAttribute */ Member inputMember) {
+		
+		// Servlet 프로젝트의 경우
+		// Service 객체 생성 
+		// try ~ catch 내부에 코드 작성
+		
+		// Spring 프로젝트
+		// 필드(맨 위)에 공용으로 사용할 서비스 객체 만든다
+		
+		// 서비스 호출 후 결과 반환 받기
+		Member loginMember = service.login(inputMember);
+		
+		// 로그인 성공 시 loginMember를 세션에 추가
+		// 로그인 실패 시 "아이디 또는 비밀번호가 일치하지 않습니다" 세션에 추가
+		
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
