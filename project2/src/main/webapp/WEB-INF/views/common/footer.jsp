@@ -20,14 +20,14 @@
 </footer>
 
 
-<%-- session scope에 message 속성이 존재하는 경우
+<%-- 모든 scope에서 message 속성이 존재하는 경우
     alert 창을 이용해서 내용 출력하기 --%>
-<c:if test="${!empty sessionScope.message}">
+<c:if test="${!empty message}">
     <script>
-        alert("${sessionScope.message}");
+        alert("${message}");
     </script>
 
-    <%-- message 1회 출력 후 session scope에서 삭제 --%>
-    <c:remove var="message" scope="session" />
+    <%-- message 1회 출력 후 모든 scope에서 message 삭제 --%>
+    <c:remove var="message" />
 </c:if>
 

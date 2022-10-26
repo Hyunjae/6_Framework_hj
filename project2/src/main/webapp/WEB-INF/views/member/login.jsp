@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 문자열 관련 메서드를 제공하는 JSTL(EL형식) --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -23,12 +24,12 @@
         <form action="/member/login" method="POST">
             <section class="input-box">
                 <!-- requred 속성 : form태그 제출 시 해당 input 태그에 값이 존재하는지 검사 -->
-                <input type="text" name="inputEmail" placeholder="Email" required value="${cookie.saveId.value}">
+                <input type="text" name="memberEmail" placeholder="Email" required value="${cookie.saveId.value}">
             </section>
             
             <section class="input-box">
                 <!-- requred 속성 : form태그 제출 시 해당 input 태그에 값이 존재하는지 검사 -->
-                <input type="password" name="inputPw" placeholder="Password" required>
+                <input type="password" name="memberPw" placeholder="Password" required>
             </section>
 
             <button class="login-btn">Login</button>
@@ -55,15 +56,15 @@
         </form>
     </main>
 
-    <%-- session scope에 message 속성이 존재하는 경우
+    <%--  scope에 message 속성이 존재하는 경우
     alert 창을 이용해서 내용 출력하기 --%>
-    <c:if test="${!empty sessionScope.message}">
+    <c:if test="${!empty message}">
         <script>
-            alert("${sessionScope.message}");
+            alert("${message}");
         </script>
 
-        <%-- message 1회 출력 후 session scope에서 삭제 --%>
-        <c:remove var="message" scope="session" />
+        <%-- message 1회 출력 후 scope에서 삭제 --%>
+        <c:remove var="message" />
     </c:if>
     
 </body>

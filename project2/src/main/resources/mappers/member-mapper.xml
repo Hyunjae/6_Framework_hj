@@ -21,7 +21,8 @@
  
    -->
  
-<!-- <resultMap type="edu.kh.project.member.vo.Member" id="member_rm"> -->	
+<!-- <resultMap type="edu.kh.project.member.vo.Member" id="member_rm">
+			위처럼 써야하지만 mybatis-config.xml에서 별칭 지정해줘서 Member라고만 쓴다 -->	
  	<resultMap type="Member" id="member_rm">
  		
  		<!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
@@ -75,5 +76,20 @@
 		WHERE MEMBER_DEL_FL = 'N'
 		AND MEMBER_EMAIL = #{memberEmail}
 	</select>
+
+
+	<!-- insert, update, delete는 항상 반영된 행의 개수(결과값이 int type)가 반환되기 때문에
+			별도의 resultType 지정이 필요없다 -->
+	
+	<!-- 회원 가입 -->
+	<insert id="signUp" parameterType="Member">
+		INSERT INTO "MEMBER"
+		VALUES(SEQ_MEMBER_NO.NEXTVAL, 
+			#{memberEmail}, #{memberPw}, #{memberNickname}, #{memberTel}, #{memberAddress},
+			DEFAULT, DEFAULT, DEFAULT, DEFAULT) 
+	</insert>
+
+
+
 
 </mapper>
