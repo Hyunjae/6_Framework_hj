@@ -14,7 +14,7 @@
     <script src="https://kit.fontawesome.com/f7459b8054.js" crossorigin="anonymous"></script>
 </head>
 <body>
-     <main>
+    <main>
         <%-- header.jsp 추가(포함) --%>
         <%-- jsp 액션 태그 중 include
             - 해당 위치에 page 속성으로 지정된 jsp 파일의 내용이 포함됨
@@ -34,7 +34,15 @@
                     <%-- 로그인 X인 경우 --%>
                     <c:when test="${empty sessionScope.loginMember}">
                                     <%-- 절대 경로 --%>
-                        <form action="/member/login" name="login-frm" method="POST">
+                        <form action="/member/login" name="login-frm" method="POST"
+                        onsubmit="return loginValidate();">
+
+                        <%-- 
+                            form 태그의 submit 이벤트를 취소시키는 방법1
+
+                            : onsubmit="return false;"
+                            -> 인라인 이벤트 모델의 결과로 false를 리턴하면 제출 이벤트가 취소됨
+                        --%>
 
                             <!-- 아이디, 비밀번호, 로그인 버튼 -->
                             <fieldset id="id-pw-area">
@@ -67,7 +75,7 @@
 
                             <!-- label 태그 내부에 input 태그를 작성하면 자동 연결됨 -->
                             <label>
-                                <input type="checkbox" name="saveId" ${temp}>아이디 저장
+                                <input type="checkbox" id="saveId" name="saveId" ${temp}>아이디 저장
                             </label>
                 
                             <!-- 회원가입, 아이디/비밀번호 찾기 -->
@@ -108,10 +116,10 @@
 
             </section>
         </section>
-     </main>
+    </main>
 
     <%-- footer.jsp 포함 --%>
-     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+    <script src="/resources/js/main.js"></script>
 </body>
 </html>
