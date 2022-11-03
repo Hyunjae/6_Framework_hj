@@ -86,7 +86,7 @@
         function sample6_execDaumPostcode() {
             new daum.Postcode({
                 oncomplete: function(data) {
-                   
+                    
                     var addr = ''; // 주소 변수
                     
                     if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
@@ -104,6 +104,9 @@
             }).open();
         }
     </script>
+
+    <%-- myPage.jsp external 방식으로 추가 --%>
+    <script src="/resources/js/member/myPage.js"></script>
 
 </body>
 </html>

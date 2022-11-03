@@ -27,8 +27,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member login(Member inputMember) {
 		
-//		System.out.println("입력한 비밀번호 : " + inputMember.getMemberPw());
-//		System.out.println("암호화 비밀번호 : " + bcrypt.encode(inputMember.getMemberPw()));
+		System.out.println("입력한 비밀번호 : " + inputMember.getMemberPw());
+		System.out.println("암호화 비밀번호 : " + bcrypt.encode(inputMember.getMemberPw()));
 		
 		// DAO 코드
 		

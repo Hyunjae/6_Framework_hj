@@ -63,6 +63,7 @@ public class MyPageServiceImpl implements MyPageService {
 		if(bcrypt.matches(memberPw, encPW)) {
 			// 회원탈퇴 진행
 			int result = dao.memberDelete(memberNo);
+			return result;
 		}
 		
 		return 0;
