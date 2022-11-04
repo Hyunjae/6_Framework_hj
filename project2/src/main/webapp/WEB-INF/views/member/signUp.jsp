@@ -90,7 +90,7 @@
                     value="${tempMember.memberTel}">
                 </div>
 
-                <span class="signUp-message" id="telMessage">전화번호를 입력해주세요('-' 제외)</span>
+                <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.('-' 제외)</span>
                 
                 <%-- a,,b,,c --%>
                 <%-- split(문자열, 구분자) : 문자열을 구분자로 쪼개서 배열로 반환 --%>
