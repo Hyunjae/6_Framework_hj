@@ -40,7 +40,7 @@
     <result property="authority" column="AUTHORITY" />
  	
  	</resultMap> 
-  
+  <!-- 작성된 해당 mapper에서만 사용가능하기 때문에 필요시 파일마다 작성 필요 -->
 
 	<!-- 속성
 		parameterType : SQL 호출 시 전달 받은 매개변수의 자료형

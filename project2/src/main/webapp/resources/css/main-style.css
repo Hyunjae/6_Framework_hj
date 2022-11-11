@@ -174,6 +174,19 @@ section.content{
 .content-1{flex-basis: 70%;}
 .content-2{flex-basis: 30%;}
 
+#content-1-2{
+    width: 500px;
+    margin: 50px auto;
+}
+
+.secession {
+    background-color: tomato;
+}
+
+.secession>td:first-of-type{
+    text-decoration: line-through;
+}
+
 form[name='login-frm'] {
     height: 150px;
     padding: 10px;
