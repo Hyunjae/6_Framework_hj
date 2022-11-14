@@ -126,8 +126,8 @@ nav{
 
     /* 어디 고정할지 지정 */
     top: 0;
-
     background-color: white;
+    z-index: 100;
 }
 
 nav>ul{
@@ -369,6 +369,7 @@ label[for='header-menu-toggle']:hover{
     border-radius: 50%;  /* 원형 모양 */
 }
 
+
 /* 프로필 이미지를 감싸고 있는 a 태그 */
 .login-area>a{
     display: block;
@@ -426,3 +427,4 @@ label[for='header-menu-toggle']:hover{
     margin: 0;
     color: gray;
 }
+

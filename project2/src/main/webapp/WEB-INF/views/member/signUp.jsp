@@ -29,7 +29,7 @@
                     maxlength="20" autocomplete="off" required
                     value="${tempMember.memberEmail}">
 
-                    <button type="button">인증번호 받기</button>
+                    <button type="button" id="sendAuthKeyBtn">인증번호 받기</button>
                 </div>
 
                 <span class="signUp-message" id="emailMessage">메일을 받을 수 있는 이메일을 입력해주세요.</span>
@@ -40,14 +40,13 @@
                 </label>
                 
                 <div class="signUp-input-area">
-                    <input type="text" name="emailCheck" id="emailCheck" placeholder="인증번호 입력"
+                    <input type="text" name="authKey" id="authKey" placeholder="인증번호 입력"
                     maxlength="6" autocomplete="off" required>
 
-                    <button type="button">인증하기</button>
+                    <button type="button" id="checkAuthKeyBtn">인증하기</button>
                 </div>
 
-                <span class="signUp-message confirm">인증되었습니다.</span>
-                                <!-- 인증번호가 일치하지 않습니다. -->
+                <span id="authKeyMessage" class="signUp-message"></span>
 
                 <!-- 비밀번호/비밀번호 확인 입력 -->
                 <label for="memberPw">

@@ -49,4 +49,13 @@ public class MyPageDAO {
 		
 		return sqlSession.update("myPageMapper.deleteMember", memberNo);
 	}
+
+	/** 프로필 이미지 수정 DAO
+	 * @param loginMember
+	 * @return result
+	 */
+	public int updateProfile(Member loginMember) {
+		
+		return sqlSession.update("myPageMapper.updateProfile", loginMember);
+	}
 }
