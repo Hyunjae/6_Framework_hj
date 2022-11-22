@@ -61,10 +61,10 @@
                                                 <img class="list-thumbnail" src="${board.thumbnail}">
                                             
                                             </c:if>
-                                            <%-- /board/1/1500 
-                                                /board/{boardCode}/{boardNo}
+                                            <%-- /board/1/1500?c=1  (목록으로 버튼을 누르면 바로 전 목록페이지로 돌아가게 하려고)
+                                                /board/{boardCode}/{boardNo}?cp=${pagination}
                                             --%>
-                                            <a href="/board/${boardCode}/${board.boardNo}">${board.boardTitle}</a>   
+                                            <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>   
                                             [${board.commentCount}]                        
                                         </td>
                                         <td>${board.memberNickname}</td>
@@ -85,10 +85,13 @@
 
 
             <div class="btn-area">
-
+                <!-- sessionScope 생략 가능, page-request-session-application 순서로
+                    일치하는 값이 있는지 확인함 -->
 				<!-- 로그인 상태일 경우 글쓰기 버튼 노출 -->
-                <button id="insertBtn">글쓰기</button>                     
-
+                <c:if test="${not empty sessionScope.loginMember}">
+                    <button id="insertBtn">글쓰기</button>
+                
+                </c:if>
             </div>
 
 
@@ -152,9 +155,11 @@
         <img id="modal-image" src="/resources/images/board/20221116105843_00001.gif">
     </div>
 
-
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <script>
+        const boardCode = "${boardCode}";
+    </script>
     <script src="/resources/js/board/boardList.js"></script>
 </body>
 </html>

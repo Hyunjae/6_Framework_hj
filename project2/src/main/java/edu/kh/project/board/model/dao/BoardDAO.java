@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.project.board.model.vo.Board;
+import edu.kh.project.board.model.vo.BoardImage;
 import edu.kh.project.board.model.vo.Pagination;
 
 @Repository
@@ -17,8 +18,8 @@ public class BoardDAO {
 	@Autowired  // root-context.xml에서 bean(객체)로 만들어둔 것을 의존성 주입받아 사용함
 	private SqlSessionTemplate sqlSession;
 
-	/**
-	 * @return
+	/** 게시판 이름 목록 조회
+	 * @return boardTypeList
 	 */
 	public List<Map<String, Object>> selectBoardType() {
 		
@@ -59,11 +60,83 @@ public class BoardDAO {
 
 	/** 게시글 상세 조회 + 이미지 목록 조회 + 댓글 목록 조회
 	 * @param boardNo
-	 * @return 
+	 * @return board
 	 */
 	public Board selectBoardDetail(int boardNo) {
 		
 		return sqlSession.selectOne("boardMapper.selectBoardDetail", boardNo);
+	}
+
+	
+	/** 조회 수 증가
+	 * @param boardNo
+	 * @return result
+	 */
+	public int updateReadCount(int boardNo) {
+		
+		return sqlSession.update("boardMapper.updateReadCount", boardNo);
+	}
+	
+	/** 좋아요 여부 체크
+	 * @param map
+	 * @return result
+	 */
+	public int boardLikeCheck(Map<String, Object> map) {
+		
+		return sqlSession.selectOne("boardMapper.boardLikeCheck", map);
+	}
+
+	/** 좋아요 수 증가(INSERT)
+	 * @param paramMap 
+	 * @return result
+	 */
+	public int boardLikeUp(Map<String, Object> paramMap) {
+		
+		return sqlSession.insert("boardMapper.boardLikeUp", paramMap);
+	}
+
+	/** 좋아요 수 감소(DELETE)
+	 * @param paramMap
+	 * @return result
+	 */
+	public int boardLikeDown(Map<String, Object> paramMap) {
+	
+		return sqlSession.delete("boardMapper.boardLikeDown", paramMap);
+	}
+
+	/** 게시글 삭제(UPDATE)
+	 * @param boardNo
+	 * @return result
+	 */
+	public int boardDelete(int boardNo) {
+		
+		return sqlSession.update("boardMapper.boardDelete", boardNo);
+	}
+
+	/** 게시글 삽입
+	 * @param board
+	 * @return boardNo
+	 */
+	public int boardWrite(Board board) {
+		
+		int result = sqlSession.insert("boardMapper.boardWrite", board);
+//		board의 boardNo 필드
+//      -> <selectKey>로 인해서 생성된 시퀀스 값이 세팅되어있음
+//		(얕은 복사이기 때문에 mapper에서 boardNo가 key값으로 저장되면 원본도 바뀜
+		
+		// 메인 쿼리(INSERT) 성공 시
+		if(result>0) result = board.getBoardNo();
+		// (실패 시 0을 반환해줌)
+		return result; // 0 또는 삽입된 게시글 번호
+	}
+
+	/** 게시글 첨부 이미지 삽입(리스트 형식)
+	 * @param boardImageList
+	 * @return result(INSERT된 행의 개수)
+	 */
+	public int insertBoardImageList(List<BoardImage> boardImageList) {
+		
+		return sqlSession.insert("boardMapper.insertBoardImageList", boardImageList);
 	}
 	
 }
