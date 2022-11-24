@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.project.board.model.vo.Board;
 import edu.kh.project.common.Util;
 import edu.kh.project.member.model.dao.MyPageDAO;
 import edu.kh.project.member.model.vo.Member;

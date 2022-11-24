@@ -34,8 +34,14 @@ public class Util {
 	// 개행문자 처리 : \r\n, \n, \r, \n\r -> <br>로 변경
 	public static String newLineHandling(String content) {
 		
-		
 		return content.replaceAll("(\r\n|\n|\r|\n\r)", "<br>");
+	}
+	
+	// 수정하기 할 때 DB를 그대로 읽어오면 개행 문자를 <>로 인식하는 문제 발생
+	// 개행문자 처리 해제
+	public static String newLineClear(String content){
+		
+		return content.replaceAll("<br>", "\n");
 	}
 	
 }
