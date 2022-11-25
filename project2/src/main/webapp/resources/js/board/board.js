@@ -88,9 +88,7 @@ deleteBtn.addEventListener("click",()=>{
         // /board/{boardCode}/{boardNo}/delete  GET방식(a태그와 같음)
         location.href = location.pathname + "/delete";
                         // /board/1/1980/delete
-        
     }
-
 });
 
 // 수정 버튼
@@ -100,6 +98,4 @@ updateBtn.addEventListener("click", ()=> {
     
     // /board/{boardCode}/{boardNo}/update?cp=10
     location.href = location.pathname + "/update" + location.search;
-    
-
 })
