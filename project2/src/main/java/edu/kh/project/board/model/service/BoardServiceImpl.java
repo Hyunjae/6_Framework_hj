@@ -295,6 +295,12 @@ public class BoardServiceImpl implements BoardService{
 		
 		return map;
 	}
+
+	@Override
+	public List<String> selectImageList() {
+		// TODO Auto-generated method stub
+		return dao.selectImageList();
+	}
 	
 	
 }
